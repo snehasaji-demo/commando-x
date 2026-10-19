@@ -3,11 +3,13 @@ import jwt
 import datetime
 import sqlite3  
 from functools import wraps
+import os
 
 # Vulnerable JWT implementation with common security issues
 
 # Weak secret key (CWE-326)
-JWT_SECRET = "secret123"
+# Fix: Load JWT_SECRET from environment variable
+JWT_SECRET = os.environ.get("JWT_SECRET", "super-secret-dev-key") # In production, ensure this is loaded from env and not hardcoded.
 
 # Vulnerable algorithm selection - allows 'none' algorithm
 ALGORITHMS = ['HS256', 'none']
